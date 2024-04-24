@@ -2,7 +2,6 @@ const express = require('express');
 const route = express.Router();
 const controller = require('../controller/controller');
 const {logout} = require('../services/userServices')
-const { check, validationResult } = require('express-validator');
 
 
 route.get("/current",controller.currentUser);
