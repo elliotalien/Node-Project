@@ -10,6 +10,4 @@ route.get('/api/employees/:id', controller.findEmployee);
 route.put('/api/employees/:id', upload.single('image'), controller.update); 
 route.delete('/api/employees/:id', controller.delete); 
 
-
-
 module.exports = route;

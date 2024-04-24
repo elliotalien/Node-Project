@@ -878,7 +878,6 @@ function searchUser() {
       datafetch.push(allemployee[x]);
     }
   }
-
   getEmployee(datafetch);
 }
 
