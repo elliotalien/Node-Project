@@ -863,22 +863,23 @@ function updateActivePage() {
 
 
 // EMPLOYEE SEARCHING (START)
-
-function searchUser() {
-  const search = document.getElementById("searchUser").value.toUpperCase();
-  let datafetch = [];
-
-  for (let x = 0; x < allemployee.length; x++) {
-    let firstName = allemployee[x].firstName.toUpperCase();
-    let lastName = allemployee[x].lastName.toUpperCase();
-    let email = allemployee[x].email.toUpperCase();
-    let phone = allemployee[x].phone.toString().toUpperCase();
-    
-    if(firstName.includes(search) || lastName.includes(search) || email.includes(search) || phone.includes(search)){
-      datafetch.push(allemployee[x]);
-    }
+function SearchEmployee() {
+  let searchValue = document.getElementById("searchUser").value.toLowerCase();
+  if (searchValue) {
+    fetch(`http://localhost:8080/search/${searchValue}`) 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        getEmployee(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  } else {
+    getEmployee(); 
   }
-  getEmployee(datafetch);
 }
 
 // EMPLOYEE SEARCHING (END)

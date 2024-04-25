@@ -1,5 +1,6 @@
 const Employees = require('../model/employeeModel');
 const multer = require('multer');
+const asyncHandler = require('express-async-handler');
 
 
 // CREATE EMPLOYEE
@@ -118,9 +119,37 @@ const handleError = (error) => {
     }
 };
 
+// Function to get all employees search
+const searchEmployee = asyncHandler(async (req, res) => {
+    try {
+        const search = await Employees.find({
+            $or: [
+                { firstName: { $regex: req.params.key, $options: "i" } },
+                { lastName: { $regex: req.params.key, $options: "i" } },
+                { dob: { $regex: req.params.key, $options: "i" } },
+                { email: { $regex: req.params.key, $options: "i" } },
+                { phone: { $regex: req.params.key, $options: "i" } },
+                { gender: { $regex: req.params.key, $options: "i" } },
+            ],
+        });
+
+        // console.log(search);
+
+        if (search.length === 0) {
+            return res.status(404).json({ message: "Employee not found" });
+        }
+
+        return search;
+        // res.status(200).json({ search });
+    } catch (error) {
+        const handledError = handleError(error);
+        res.status(handledError.status).json({ message: handledError.message });
+    }
+});
 
 
-module.exports = { createEmployee, findEmployee, updateEmployee, deleteEmployee,handleError };
+
+module.exports = { createEmployee, findEmployee, updateEmployee, deleteEmployee, searchEmployee ,handleError };
 
 
 

@@ -1065,3 +1065,8 @@ input::placeholder,
     font-weight: 700;
     line-height: 24px;
 }
+
+
+.employtable-data{
+    height: 50vh;
+}

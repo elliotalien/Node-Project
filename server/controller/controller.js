@@ -64,6 +64,18 @@ exports.findEmployee = async (req, res) => {
   }
 };
 
+
+
+exports.search = async (req, res) => {
+    try {
+      const data = await employeeService.searchEmployee(req);
+      res.status(200).json(data);
+    } catch (error) {
+      const handledError = handleError(error);
+      res.status(handledError.status).send({ message: handledError.message });
+    }
+  };
+
 // users controller
 
 const userService = require("../services/userServices");
