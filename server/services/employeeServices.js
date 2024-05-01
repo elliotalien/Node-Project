@@ -119,6 +119,7 @@ const handleError = (error) => {
     }
 };
 
+
 // Function to get all employees search
 const searchEmployee = asyncHandler(async (req, res) => {
     try {
@@ -132,9 +133,6 @@ const searchEmployee = asyncHandler(async (req, res) => {
                 { gender: { $regex: req.params.key, $options: "i" } },
             ],
         });
-
-        // console.log(search);
-
         if (search.length === 0) {
             return res.status(404).json({ message: "Employee not found" });
         }
