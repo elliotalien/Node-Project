@@ -496,13 +496,27 @@ button {
 
 /* Form Box Styles */
 .form-box {
-    position: absolute;
+    /* position: absolute;
     top: 590px;
     left: 50%;
     right: 50%;
     transform: translate(-50%, -50%) scale(0);
     transition: 400ms ease-in-out;
     z-index: 20;
+    height: 50%; */
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 400ms ease-in-out;
+    z-index: 20;
+    height: 100%;
+    overflow: scroll;
+}
+
+.form-box::-webkit-scrollbar{
+    display: none;
 }
 
 

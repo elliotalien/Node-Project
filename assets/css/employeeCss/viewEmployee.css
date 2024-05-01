@@ -13,7 +13,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 0 0 170px 0;
 }
 
 .cover-image {
@@ -102,4 +101,17 @@
     display: flex;
     gap: 15px;
     justify-content: flex-end;
+}
+
+
+.form-box{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 400ms ease-in-out;
+    z-index: 20;
+    height: 100%;
+    overflow: scroll;
 }

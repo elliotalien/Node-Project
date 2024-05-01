@@ -76,6 +76,8 @@ exports.search = async (req, res) => {
     }
   };
 
+  
+
 // users controller
 
 const userService = require("../services/userServices");
