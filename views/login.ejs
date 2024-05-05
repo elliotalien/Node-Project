@@ -15,11 +15,14 @@
         <div class="box">
             <div class="inner-box">
                 <div class="forms-wrap">
+                    <% if (userExists) { %>
+                        <div class="notification" id="notification">Email or password incorrect. Please try again.</div>
+                    <% } %>
                     <form action="/register/loginUser" autocomplete="on" class="sign-in-form" method="post" id="login-form">
 
                         <div class="heading">
                             <h2>Welcome Back</h2>
-                            <h6>Not registred yet?</h6>
+                            <h6>Not registered yet?</h6>
                             <a href="/signup" class="toggle">Sign up</a>
                         </div>
 
@@ -38,7 +41,7 @@
 
 
                             <p class="text">
-                                Forgotten your password or you login datails?
+                                Forgotten your password or your login details?
                                 <a href="#">Get help</a> signing in
                             </p>
                         </div>
@@ -55,7 +58,7 @@
                     <div class="text-slider">
                         <div class="text-wrap">
                             <div class="text-group">
-                                <h2>Employee Management   System</h2>
+                                <h2>Employee Management System</h2>
                                 <h2>Add Your Employees +</h2>
                                 <h2>Employees Are here !</h2>
                             </div>
@@ -72,6 +75,15 @@
         </div>
     </main>
     <script src="./javascript/loginSiginup.js"></script>
+    <script>
+        setTimeout(() => {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.remove();
+                window.location.href = '/'; 
+            }
+        }, 5000);
+    </script>
 </body>
 
 </html>

@@ -270,41 +270,39 @@ userImageInputbox.addEventListener("change", function () {
     userImage.src = URL.createObjectURL(file);
   }
 });
+
+
 // post employee
 async function postuser() {
   try {
     const userData = adduser();
     const imageFileInput = document.getElementById("imageuploadbox");
 
-    if (
-      imageFileInput &&
-      imageFileInput.files &&
-      imageFileInput.files.length > 0
-    ) {
+    const formData = new FormData();
+  
+    if (imageFileInput && imageFileInput.files && imageFileInput.files.length > 0) {
       const imageFile = imageFileInput.files[0];
-
-      const formData = new FormData();
       formData.append("image", imageFile);
-      for (const [key, value] of Object.entries(userData)) {
-        formData.append(key, value);
-      }
-
-      const response = await fetch("http://localhost:8080/api/employees", {
-        method: "POST",
-        body: formData,
-      });
-
-      const responseData = await response.json();
-      console.log(responseData);
-
-      addemployeeOpenToast();
-    } else {
-      console.log("No image file selected");
     }
+
+    for (const [key, value] of Object.entries(userData)) {
+      formData.append(key, value);
+    }
+
+    const response = await fetch("http://localhost:8080/api/employees", {
+      method: "POST",
+      body: formData,
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+
+    addemployeeOpenToast();
   } catch (error) {
     console.log(error);
   }
 }
+
 
 //  EMPLOYEE EDITING / PUT (START)
 async function editing() {
@@ -323,6 +321,8 @@ async function editing() {
     console.error(error);
   }
 }
+
+
 
 async function addImage(imageFile) {
   const userData = adduser();
@@ -623,115 +623,124 @@ document.getElementById("overlay").addEventListener("click", resetFields);
 
 
 // WEBSITE PAGINATION (START)
-
 var indexvalue = 0;
-var datas;
 var allemployee;
 var totalPages;
-var itemshow;
-
 var pageul = document.querySelector(".paginationbtn");
-
 var employeePerpage = document.getElementById("employeePerpage");
 
 employeePerpage.addEventListener("change", selectpage);
 
 function selectpage() {
-  indexvalue = 0;
-  pagination(allemployee);
+    indexvalue = 0;
+    pagination(allemployee);
 }
 
 function pagination(employeelist) {
-  var itemperpage = parseInt(employeePerpage.value);
-  var totalItems = employeelist.length;
-  totalPages = Math.ceil(totalItems / itemperpage);
+    var itemperpage = parseInt(employeePerpage.value);
+    var totalItems = employeelist.length;
+    totalPages = Math.ceil(totalItems / itemperpage);
 
-  var currentPageData = employeelist.slice(
-    indexvalue,
-    indexvalue + itemperpage
-  );
+    var currentPageData = employeelist.slice(
+        indexvalue,
+        indexvalue + itemperpage
+    );
 
-  getEmployee(currentPageData);
+    // Assuming getEmployee function is defined elsewhere to display employees
+    getEmployee(currentPageData);
 
-  renderPagination();
+    renderPagination();
 }
 
 function renderPagination() {
-  pageul.innerHTML = "";
+    pageul.innerHTML = "";
 
-  var prevButton = document.createElement("li");
-  prevButton.className = "previousPage";
-  prevButton.innerHTML = '<i class="fa fa-angle-left"></i>';
-  prevButton.addEventListener("click", function () {
-    if (indexvalue > 0) {
-      indexvalue -= parseInt(employeePerpage.value);
-      pagination(allemployee);
-    }
-  });
-  pageul.appendChild(prevButton);
-
-  for (let i = 1; i <= totalPages; i++) {
-    var li = document.createElement("li");
-    li.textContent = i;
-    li.addEventListener("click", function () {
-      indexvalue = (i - 1) * parseInt(employeePerpage.value);
-      pagination(allemployee);
-      updateActivePage();
+    var prevButton = createPaginationButton("previousPage", '<i class="fa fa-angle-left"></i>', function () {
+        if (indexvalue > 0) {
+            indexvalue -= parseInt(employeePerpage.value);
+            pagination(allemployee);
+        }
     });
-    pageul.appendChild(li);
-  }
+    pageul.appendChild(prevButton);
 
-  var nextButton = document.createElement("li");
-  nextButton.className = "nextPage";
-  nextButton.innerHTML = '<i class="fa fa-angle-right"></i>';
-  nextButton.addEventListener("click", function () {
-    if (indexvalue + parseInt(employeePerpage.value) < allemployee.length) {
-      indexvalue += parseInt(employeePerpage.value);
-      pagination(allemployee);
-      updateActivePage();
+    for (let i = 1; i <= totalPages; i++) {
+        var li = document.createElement("li");
+        li.textContent = i;
+        li.addEventListener("click", function () {
+            indexvalue = (i - 1) * parseInt(employeePerpage.value);
+            pagination(allemployee);
+            updateActivePage();
+        });
+        pageul.appendChild(li);
     }
-  });
-  pageul.appendChild(nextButton);
 
-  updateActivePage();
+    var nextButton = createPaginationButton("nextPage", '<i class="fa fa-angle-right"></i>', function () {
+        if (indexvalue + parseInt(employeePerpage.value) < allemployee.length) {
+            indexvalue += parseInt(employeePerpage.value);
+            pagination(allemployee);
+            updateActivePage();
+        }
+    });
+    pageul.appendChild(nextButton);
+
+    updateActivePage();
 }
 
-// Function to update the active page
+function createPaginationButton(className, innerHTML, onClickFunction) {
+    var button = document.createElement("li");
+    button.className = className;
+    button.innerHTML = innerHTML;
+    button.addEventListener("click", onClickFunction);
+    return button;
+}
 
 function updateActivePage() {
-  var paginationList = document.getElementById("paginationList");
-  var listItems = paginationList.getElementsByTagName("li");
+    var paginationList = document.getElementById("paginationList");
+    var listItems = paginationList.getElementsByTagName("li");
 
-  for (var i = 0; i < listItems.length; i++) {
-    listItems[i].classList.remove("active");
-  }
+    for (var i = 0; i < listItems.length; i++) {
+        listItems[i].classList.remove("active");
+    }
 
-  listItems[indexvalue / parseInt(employeePerpage.value) + 1].classList.add(
-    "active"
-  );
+    listItems[indexvalue / parseInt(employeePerpage.value) + 1].classList.add(
+        "active"
+    );
 }
 
-// WEBSITE PAGINATION (END)
+function searchEmployee() {
+  const searchValue = document.getElementById("searchUser").value.toLowerCase();
+  const currentPage = 1; 
+  const itemsPerPage = parseInt(employeePerpage.value); 
 
-// EMPLOYEE SEARCHING (START)
-function SearchEmployee() {
-  let searchValue = document.getElementById("searchUser").value.toLowerCase();
   if (searchValue) {
-    fetch(`http://localhost:8080/search/${searchValue}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        getEmployee(data);
-      })
-      .catch((error) => console.error("Error:", error));
+      fetch(`http://localhost:8080/search/${searchValue}?page=${currentPage}&limit=${itemsPerPage}`)
+          .then((response) => {
+              if (!response.ok) {
+                  throw new Error("Server error: " + response.statusText);
+              }
+              return response.json();
+          })
+          .then((data) => {
+              const searchResults = data.search;
+              const currentPage = data.page;
+              pageul.innerHTML = "";
+
+              if (searchResults.length === 1) {
+                  getEmployee(searchResults); 
+              } else {
+                  getEmployee(searchResults); 
+                  renderPagination(currentPage, itemsPerPage);
+              }
+          })
+          .catch((error) => {
+              console.error("Error:", error.message);
+          });
   } else {
-    getEmployee();
+      getEmployee(); 
   }
 }
+
+
 
 // EMPLOYEE SEARCHING (END)
 

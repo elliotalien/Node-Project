@@ -24,7 +24,7 @@ const createUser = asyncHandler(async (req, res) => {
   let user = await userModels.findOne({ email });
 
   if (user) {
-    return res.redirect("/signup");
+    return res.render("signup",{ title: "Signup",userExists: true });
   }
 
   if (email === "" || password === "" || name === "") {
@@ -119,9 +119,10 @@ const loginUser = asyncHandler(async (req, res) => {
   let validation = true;
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    validation = false;
-    return res.redirect("/signup");
+    req.flash('userExists', true); 
+    return res.redirect("/"); 
   }
+
 
   if (validation) {
     req.session.isAuth = true;
@@ -130,6 +131,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(401);
   }
 });
+
 
 // logout
 

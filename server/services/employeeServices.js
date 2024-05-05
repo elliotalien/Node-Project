@@ -4,6 +4,35 @@ const asyncHandler = require('express-async-handler');
 
 
 // CREATE EMPLOYEE
+// const createEmployee = async (req) => {
+//     try {
+//         const imagePath = req.file ? req.file.path : null;
+//         console.log('Image Path:', imagePath);
+
+//         const requiredFields = [
+//             "salutation", "firstName", "lastName", "email", "phone",
+//             "dob", "address", "gender", "qualifications", "state",
+//             "city", "country", "pinZip", "password", "username"
+//         ];
+
+//         for (const field of requiredFields) {
+//             if (!req.body[field]) {
+//                 throw { status: 400, message: `Error: Missing ${field} field` };
+//             }
+//         }
+
+//         console.log('Request Body:', req.body); 
+
+//         const newEmployee = await Employees.create({
+//             ...req.body,
+//             image: imagePath,
+//         });
+
+//         return newEmployee;
+//     } catch (error) {
+//         throw handleError(error);
+//     }
+// };
 const createEmployee = async (req) => {
     try {
         const imagePath = req.file ? req.file.path : null;
@@ -23,10 +52,15 @@ const createEmployee = async (req) => {
 
         console.log('Request Body:', req.body); 
 
-        const newEmployee = await Employees.create({
-            ...req.body,
-            image: imagePath,
-        });
+        const newEmployeeData = {
+            ...req.body
+        };
+        
+        if (imagePath) {
+            newEmployeeData.image = imagePath;
+        }
+
+        const newEmployee = await Employees.create(newEmployeeData);
 
         return newEmployee;
     } catch (error) {
@@ -119,33 +153,39 @@ const handleError = (error) => {
     }
 };
 
-
-// Function to get all employees search
-const searchEmployee = asyncHandler(async (req, res) => {
+// search and pagination
+const searchEmployee = async (searchKey, page = 1, limit = 10) => {
     try {
-        const search = await Employees.find({
-            $or: [
-                { firstName: { $regex: req.params.key, $options: "i" } },
-                { lastName: { $regex: req.params.key, $options: "i" } },
-                { dob: { $regex: req.params.key, $options: "i" } },
-                { email: { $regex: req.params.key, $options: "i" } },
-                { phone: { $regex: req.params.key, $options: "i" } },
-                { gender: { $regex: req.params.key, $options: "i" } },
-            ],
-        });
-        if (search.length === 0) {
-            return res.status(404).json({ message: "Employee not found" });
+        const skip = (page - 1) * limit;
+
+        const search = await Employees.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { firstName: { $regex: searchKey, $options: "i" } },
+                        { lastName: { $regex: searchKey, $options: "i" } },
+                        { dob: { $regex: searchKey, $options: "i" } },
+                        { email: { $regex: searchKey, $options: "i" } },
+                        { phone: { $regex: searchKey, $options: "i" } },
+                        { gender: { $regex: searchKey, $options: "i" } },
+                    ]
+                }
+            },
+            { $skip: skip },
+            { $limit: limit }
+        ]);
+
+        if (search.length === 1) {
+            return { search, page }; 
         }
 
-        return search;
-        // res.status(200).json({ search });
+        return { search, page };
+        
     } catch (error) {
-        const handledError = handleError(error);
-        res.status(handledError.status).json({ message: handledError.message });
+        console.error('Error:', error);
+        throw error; 
     }
-});
-
-
+};
 
 module.exports = { createEmployee, findEmployee, updateEmployee, deleteEmployee, searchEmployee ,handleError };
 

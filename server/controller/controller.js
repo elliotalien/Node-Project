@@ -1,5 +1,6 @@
 const employeeService = require("../services/employeeServices");
 const { handleError } = require("../services/employeeServices");
+const Employee = require("../model/employeeModel")
 
 exports.create = async (req, res) => {
   try {
@@ -65,18 +66,23 @@ exports.findEmployee = async (req, res) => {
 };
 
 
-
 exports.search = async (req, res) => {
-    try {
-      const data = await employeeService.searchEmployee(req);
-      res.status(200).json(data);
-    } catch (error) {
-      const handledError = handleError(error);
-      res.status(handledError.status).send({ message: handledError.message });
-    }
-  };
+  try {
+    const { key } = req.params;
+    const { page, limit } = req.query;
+    
+    const searchResults = await employeeService.searchEmployee(key, parseInt(page), parseInt(limit));
+    
+    res.status(200).json(searchResults); 
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: "Internal server error" }); 
+  }
+};
 
-  
+
+
+
 
 // users controller
 
