@@ -413,11 +413,17 @@ main.sign-up-mode .carousel {
 
 
 .notification {
-  background-color: #f44336;
-  color: white;
-  padding: 15px;
-  margin: auto;
-  border-radius: 5px;
-  width: 80%;
-  text-align: center;
+  background-color: #f44336; 
+  color: white; 
+  text-align: center; 
+  padding: 16px;
+  margin-bottom: 20px; 
+  opacity: 1;
+  transition: opacity 0.5s ease; 
+  width: 93%;
 }
+
+.notification.hidden {
+  opacity: 0; 
+}
+

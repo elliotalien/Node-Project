@@ -5,13 +5,18 @@ const HomeRoute = (req, res) => {
 };
 
 const SignupRoute = (req, res) => {
-  res.render("signup", { title: "Signup", userExists: false });
+    const notification = req.session.notification;
+    res.render("signup", { title: "Signup",  notification});
 };
 
 const LoginRoutes = (req, res) => {
-  const userExists = req.flash("userExists")[0];
-  res.render("login", { title: "Login", userExists });
-};
+    const notification = req.session.notification;
+    delete req.session.notification;
+    res.render("login", { title: "Login", notification });
+  };
+  
+  
+  
 
 const ViewEmployeeRoutes = (req, res) => {
   res.render("viewEmployee", { title: "View Employee" });

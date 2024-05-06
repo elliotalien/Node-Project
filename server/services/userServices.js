@@ -24,8 +24,10 @@ const createUser = asyncHandler(async (req, res) => {
   let user = await userModels.findOne({ email });
 
   if (user) {
-    return res.render("signup",{ title: "Signup",userExists: true });
+    req.session.notification = "User already exists. Please choose a different email.";
+    return res.redirect("/signup");
   }
+
 
   if (email === "" || password === "" || name === "") {
     return res.redirect("/signup");
@@ -118,8 +120,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
   let validation = true;
 
+ 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    req.flash('userExists', true); 
+    req.session.notification = "Email or password incorrect. Please try again.";
     return res.redirect("/"); 
   }
 

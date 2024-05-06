@@ -16,9 +16,9 @@
             <div class="inner-box">
             
                 <div class="forms-wrap">
-                    <% if (userExists) { %>
-                        <div class="notification" id="notification">User already exists. Please choose a different email.</div>
-                    <% } %>
+                    <% if (notification) { %>
+                        <div class="notification" id="notification"><%= notification %></div>
+                    <% } %>                 
                     <form action="/register" autocomplete="on" class="sign-in-form" id="sign-up-form" method="post">
                         <div class="heading">
                            
@@ -76,13 +76,14 @@
     </main>
     <script src="./javascript/loginSiginup.js"></script>
     <script>
-        setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', () => {
             const notification = document.getElementById('notification');
             if (notification) {
-                notification.remove();
-                window.location.href = '/signup';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 4000);
             }
-        }, 5000);
+        });
     </script>
 </body>
 

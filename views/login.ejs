@@ -15,9 +15,10 @@
         <div class="box">
             <div class="inner-box">
                 <div class="forms-wrap">
-                    <% if (userExists) { %>
-                        <div class="notification" id="notification">Email or password incorrect. Please try again.</div>
-                    <% } %>
+                    <% if (notification) { %>
+                        <div class="notification" id="notification"><%= notification %></div>
+                      <% } %>
+     
                     <form action="/register/loginUser" autocomplete="on" class="sign-in-form" method="post" id="login-form">
 
                         <div class="heading">
@@ -75,14 +76,16 @@
         </div>
     </main>
     <script src="./javascript/loginSiginup.js"></script>
+
     <script>
-        setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', () => {
             const notification = document.getElementById('notification');
             if (notification) {
-                notification.remove();
-                window.location.href = '/'; 
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 4000);
             }
-        }, 5000);
+        });
     </script>
 </body>
 
