@@ -1,38 +1,8 @@
 const Employees = require('../model/employeeModel');
 const multer = require('multer');
-const asyncHandler = require('express-async-handler');
 
 
 // CREATE EMPLOYEE
-// const createEmployee = async (req) => {
-//     try {
-//         const imagePath = req.file ? req.file.path : null;
-//         console.log('Image Path:', imagePath);
-
-//         const requiredFields = [
-//             "salutation", "firstName", "lastName", "email", "phone",
-//             "dob", "address", "gender", "qualifications", "state",
-//             "city", "country", "pinZip", "password", "username"
-//         ];
-
-//         for (const field of requiredFields) {
-//             if (!req.body[field]) {
-//                 throw { status: 400, message: `Error: Missing ${field} field` };
-//             }
-//         }
-
-//         console.log('Request Body:', req.body); 
-
-//         const newEmployee = await Employees.create({
-//             ...req.body,
-//             image: imagePath,
-//         });
-
-//         return newEmployee;
-//     } catch (error) {
-//         throw handleError(error);
-//     }
-// };
 const createEmployee = async (req) => {
     try {
         const imagePath = req.file ? req.file.path : null;
