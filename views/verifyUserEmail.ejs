@@ -16,6 +16,11 @@
         <div class="box">
             <div class="inner-box">
                 <div class="forms-wrap">
+
+                    <% if (notification) { %>
+                        <div class="notification" id="notification"><%= notification %></div>
+                      <% } %>
+
                     <form action="/register/verifyUserEmail" method="post" autocomplete="on" class="sign-in-form">
 
                         <div class="heading">
@@ -61,6 +66,18 @@
         </div>
     </main>
     <script src="./javascript/loginSiginup.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 6000);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

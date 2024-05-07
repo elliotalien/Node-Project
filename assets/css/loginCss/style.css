@@ -412,7 +412,7 @@ main.sign-up-mode .carousel {
 
 
 
-.notification {
+/* .notification {
   background-color: #f44336; 
   color: white; 
   text-align: center; 
@@ -425,5 +425,26 @@ main.sign-up-mode .carousel {
 
 .notification.hidden {
   opacity: 0; 
+} */
+
+.notification {
+  color: white; 
+  text-align: center; 
+  padding: 16px;
+  margin-bottom: 20px; 
+  opacity: 1;
+  transition: opacity 0.5s ease; 
+  width: 93%;
 }
 
+.notification.verified {
+  background-color: #8efcd0; /* Light green for success */
+}
+
+.notification.error {
+  background-color: #f44336; /* Red for error */
+}
+
+.notification.hidden {
+  opacity: 0; 
+}

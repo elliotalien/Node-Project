@@ -14,12 +14,17 @@ const LoginRoutes = (req, res) => {
     delete req.session.notification;
     res.render("login", { title: "Login", notification });
   };
-  
-  
-  
+
+
+const verifyUserEmail = (req, res) => {
+  const notification = req.session.notification || ""; 
+  delete req.session.notification;
+  res.render("verifyUserEmail", { title: "Email Verification", notification });
+};
+
 
 const ViewEmployeeRoutes = (req, res) => {
   res.render("viewEmployee", { title: "View Employee" });
 };
 
-module.exports = { HomeRoute, SignupRoute, LoginRoutes, ViewEmployeeRoutes };
+module.exports = { HomeRoute, SignupRoute, LoginRoutes, ViewEmployeeRoutes ,verifyUserEmail };

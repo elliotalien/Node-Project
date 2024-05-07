@@ -17,8 +17,9 @@
             
                 <div class="forms-wrap">
                     <% if (notification) { %>
-                        <div class="notification" id="notification"><%= notification %></div>
-                    <% } %>                 
+                        <div class="notification <% if(notification.includes('already exists')) { %> error <% } else { %> verified <% } %>" id="notification"><%= notification %></div>
+                    <% } %>
+                                               
                     <form action="/register" autocomplete="on" class="sign-in-form" id="sign-up-form" method="post">
                         <div class="heading">
                            
@@ -74,7 +75,7 @@
             </div>
         </div>
     </main>
-    <script src="./javascript/loginSiginup.js"></script>
+    <script src="./javascript/loginSignup.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const notification = document.getElementById('notification');

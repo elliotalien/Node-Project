@@ -76,11 +76,14 @@ const createUser = asyncHandler(async (req, res) => {
     const title = "For Email verification ✅ ";
     MailSender(Email, html, title, { contentType: "text/html" });
 
+    req.session.notification = `Email has been sent to your  ${Email}email address for verification.`;
+
     res.render("verifyUserEmail", {
       Email,
       err: "",
       ExpirationTime,
       title: "Email Verification ",
+      notification: req.session.notification,
     });
   } catch (error) {
     res.status(400).json({ userModelserror: error.message });
@@ -102,7 +105,9 @@ const verifyUserEmail = asyncHandler(async (req, res) => {
       password: HashPassword,
     });
 
+    req.session.notification = "Email verified successfully.";
     res.redirect("/");
+
   } catch (error) {
     res.render("verifyUserEmail", {
       Email,

@@ -16,9 +16,8 @@
             <div class="inner-box">
                 <div class="forms-wrap">
                     <% if (notification) { %>
-                        <div class="notification" id="notification"><%= notification %></div>
-                      <% } %>
-     
+                        <div class="notification <% if(notification.includes('Email verified')) { %> verified <% } else { %> error <% } %>" id="notification"><%= notification %></div>
+                    <% } %>     
                     <form action="/register/loginUser" autocomplete="on" class="sign-in-form" method="post" id="login-form">
 
                         <div class="heading">
@@ -75,7 +74,7 @@
             </div>
         </div>
     </main>
-    <script src="./javascript/loginSiginup.js"></script>
+    <script src="./javascript/loginSignup.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
