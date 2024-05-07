@@ -9,4 +9,5 @@ route.get("/signup",SignupRoute)
 route.get("/",LoginRoutes)
 route.get("/viewEmployee",isAuthenticated,ViewEmployeeRoutes)
 route.get("/verifyUserEmail",verifyUserEmail)
+
 module.exports = route ;

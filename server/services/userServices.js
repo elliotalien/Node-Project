@@ -18,13 +18,15 @@ const currentUser = asyncHandler(async (req, res) => {
   res.status(200).json({ userModel });
 });
 
+
+
 // Create user
 const createUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   let user = await userModels.findOne({ email });
 
   if (user) {
-    req.session.notification = "User already exists. Please choose a different email.";
+    req.session.notification = "User already exists. Please choose a different email.";
     return res.redirect("/signup");
   }
 
@@ -46,6 +48,7 @@ const createUser = asyncHandler(async (req, res) => {
     };
 
     token = jwt.sign(payload, secretKey, { expiresIn: "5m" });
+    
     const hashPassword = await bcrypt.hash(password, 10);
     HashPassword = hashPassword;
     Otp = otp;

@@ -6,6 +6,7 @@ const HomeRoute = (req, res) => {
 
 const SignupRoute = (req, res) => {
     const notification = req.session.notification;
+    delete req.session.notification;
     res.render("signup", { title: "Signup",  notification});
 };
 

@@ -50,6 +50,7 @@ function getEmployee(users) {
 
 // GENERATES DYNAMIC HTML TABLE FROM THE SERVER BASED DATA. (END)
 
+
 // SLNUMBER GENERATING FUNCTION (START)
 
 function slnumber(num) {
