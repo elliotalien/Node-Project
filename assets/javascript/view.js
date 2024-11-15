@@ -406,7 +406,7 @@ function editEmployeeToastClose() {
 document.getElementById("editEmployeeToast").classList.remove("active")
 overlay.classList.remove("active");
 
-
+}
 
 
 
@@ -620,3 +620,6 @@ function formValidation() {
 }
 
 document.getElementById("overlay").addEventListener("click", resetFields);
+
+
+

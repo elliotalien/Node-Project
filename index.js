@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const session = require("express-session");
+const MongoDBStore = require('connect-mongodb-session')(session);
 const path = require("path");
 const connectDB = require("./server/config/dbConfig");
 const cookieParser = require("cookie-parser");
@@ -12,6 +13,17 @@ const app = express();
 const flash = require("express-flash");
 app.use(flash());
 
+// Configure MongoDB session store
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URL,
+  collection: 'sessions'
+});
+
+// Catch errors
+store.on('error', function(error) {
+  console.log(error);
+});
+
 // Session middleware
 app.use(cookieParser());
 app.use(
@@ -19,7 +31,11 @@ app.use(
     secret: process.env.secret_key,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false },
+    store: store,
+    cookie: { 
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    },
   })
 );
 
