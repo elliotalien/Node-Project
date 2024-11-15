@@ -9,22 +9,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.8",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
-    "body-parse": "^0.1.0",
     "body-parser": "^1.20.2",
     "cloudinary": "^2.5.1",
     "connect-mongo": "^5.1.0",
     "connect-mongodb-session": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
@@ -37,7 +35,6 @@
     "mongoose": "^8.3.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "node": "^18.20.2",
     "nodemailer": "^6.9.13",
     "otp-generator": "^4.0.1",
     "path": "^0.12.7",
