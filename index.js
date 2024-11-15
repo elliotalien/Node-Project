@@ -21,25 +21,26 @@ const store = new MongoDBStore({
 
 // Catch errors
 store.on('error', function(error) {
-  console.log(error);
+  console.error("Session store error:", error);
 });
 
 // Session middleware
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.secret_key,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store,
     cookie: { 
       secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     },
   })
 );
 
-// set view engine
+// Set view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -51,24 +52,22 @@ app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
-// load files
+// Load static files
 app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
 app.use("/css", express.static(path.resolve(__dirname, "assets/css")));
-app.use("/javascript",express.static(path.resolve(__dirname, "assets/javascript")));
+app.use("/javascript", express.static(path.resolve(__dirname, "assets/javascript")));
 app.use("/images", express.static(path.resolve(__dirname, "assets/images")));
 
-// routes
+// Routes
 app.use("/", require("./server/routes/employeeRouter"));
 app.use("/register", require("./server/routes/usersRouter"));
-app.use("/",require("./server/routes/routes"))
-
+app.use("/", require("./server/routes/routes"));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error("Error handling middleware:", err.stack);
   res.status(500).send("Something broke!");
 });
-
 
 // Start the server
 app.listen(PORT, () => {
