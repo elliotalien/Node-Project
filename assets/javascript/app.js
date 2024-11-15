@@ -1,17 +1,14 @@
 // employee fetch
 function employeeGet() {
-  $.ajax({
-    url: "https://employemanagement.vercel.app/api/employees",
-    type: "GET",
-    dataType: "json",
-    success: function (objectData) {
+  fetch("https://employemanagement.vercel.app/api/employees")
+    .then(response => response.json())
+    .then(objectData => {
       allemployee = objectData;
       pagination(allemployee);
-    },
-    error: function (error) {
+    })
+    .catch(error => {
       console.log(error);
-    },
-  });
+    });
 }
 
 employeeGet();
