@@ -1,0 +1,232 @@
+ <!-- ADD EMPLOYEE FORM -->
+
+ <div class="row ">
+    <div class="col-lg-6 form-background form-box col-md-12 " id="form-box">
+
+        <div class="form-top">
+            <h3 id="changeform" class="form">Add Employee</h3>
+
+            <button onclick="closeForm()" class="close-button form">&times;</button>
+        </div>
+
+        <!-- upload box start from here -->
+        <form enctype="multipart/form-data" method="post">
+            <label for="imageuploadbox" class="upload" id="imageuploding-box">
+                <i class="bi bi-upload"></i>
+                <h5 class="upload-box-text">Upload Image</h5>
+                <p class="Upload-contents">PNG,JPG Files are allowed</p>
+                <input class="form-control" type="file" id="imageuploadbox" name="image" accept="image/*"> 
+            </label>
+        </form>
+        
+        <!-- Edit employee profile image -->
+        <div class="profilepicbox" id="previewimage">
+            <div class="picture-box">
+                <img id="imagefile" src="/" alt="" class="get-profile-pic">
+            </div>
+            <label for="image-change" class="image-changing-btn"> change
+                <input type="file" id="image-change">
+            </label>
+        </div>
+        
+
+
+
+
+
+        <!-- FORM INPUT FEILDS (start)-->
+
+
+
+        <form   id="FormClearing  add_user" >
+
+            <!-- <form enctype="multipart/form-data"  id="add_user" > -->
+
+            <div class="row pt-4">
+
+                <div class="col-lg-4 col-md-12">
+                    <label for="exampleInputEmail1" class="form-label ">Salutation</label>
+                    <select class="form-select form-select-lg p-3" aria-label="Default select example"
+                        id="salutation">
+                        <option selected>Selection</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Mrs">Mrs</option>
+                    </select>
+                    <div class="error-message" id="salutation-error"></div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <label for="first-name" class="form-label  fondspace">First Name</label>
+                    <input id="firstName" class="form-control form-control-lg" type="text"
+                        placeholder="First Name" aria-label=".form-control-sm example">
+                    <div class="error-message" id="firstName-error"></div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <label for="last-name" class="form-label   fondspace">Last Name</label>
+                    <input id="lastName" class="form-control form-control-lg" type="text"
+                        placeholder="Last Name" aria-label=".form-control-sm example">
+                    <div class="error-message" id="lastName-error"></div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row pt-4">
+                <div class="col-lg-6 col-sm-12">
+                    <label for="exampleInputEmail1" class="form-label  ">Email address</label>
+                    <input type="email" class="form-control form-control-lg" id="email"
+                        placeholder="Email address" aria-describedby="emailHelp">
+                    <div class="error-message" id="email-error"></div>
+                </div>
+
+
+                <div class="col-lg-6 col-sm-12">
+                    <label for="last-name" class="form-label   fondspace">Mobile Number</label>
+                    <input class="form-control form-control-lg" type="tel" placeholder="enter mobile number"
+                        aria-label=".form-control-sm example" id="phone" required>
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+            </div>
+
+
+
+            <div class="row pt-4">
+                <div class="col-lg-6 col-sm-12">
+                    <label for="username" class="form-label  ">username</label>
+                    <input type="text" class="form-control form-control-lg" id="username" placeholder="username"
+                        aria-describedby="emailHelp" autocomplete="username">
+                    <div class="error-message" id="username-error"></div>
+                </div>
+
+
+
+                <div class="col-lg-6 col-sm-12">
+                    <label for="last-name" class="form-label   fondspace">password</label>
+
+                    <input class="form-control form-control-lg" type="password" placeholder="password"
+                        aria-label=".form-control-sm example" id="password" autocomplete="current-password">
+                    <div class="error-message" id="password-error"></div>
+                </div>
+            </div>
+
+            <div class="row pt-4 align-items-center">
+                <div class="col-lg-5 col-sm-12">
+                    <label for="last-name" class="form-label  ">Date of Birth</label>
+                    <input class="form-control form-control-lg" type="date" placeholder=""
+                        aria-label=".form-control-sm example" id="dob">
+                    <div class="error-message" id="dob-error"></div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <label for="gender" class="form-label fondspace">Gender</label>
+                    <div class="row">
+                        <div class="form-check col-4 ms-3">
+                            <input class="form-check-input" type="radio" name="gender" id="Male" value="Male">
+                            <label class="form-check-label" for="Male">Male</label>
+                        </div>
+                        <div class="form-check col-6">
+                            <input class="form-check-input" type="radio" name="gender" id="Female"
+                                value="Female">
+                            <label class="form-check-label" for="Female">Female</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="gender-error"></div>
+                </div>
+
+
+            </div>
+
+            <div class="row pt-4">
+
+                <div class="col-12">
+                    <label for="Qualifications" class="form-label  ">Qualifications</label>
+                    <input class="form-control form-control-lg" type="text" placeholder="Qualifications"
+                        aria-label=".form-control-sm example" id="qualifications">
+                    <div class="error-message" id="qualifications-error"></div>
+                </div>
+            </div>
+
+
+            <div class="row pt-4">
+
+                <div class="col-12">
+                    <label for="last-name" class="form-label  ">Address</label>
+                    <input class="form-control form-control-lg" type="text" placeholder="enter Address"
+                        aria-label=".form-control-sm example" id="address">
+                    <div class="error-message" id="address-error"></div>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-lg-6 col-sm-12">
+                    <label for="exampleInputEmail1" class="form-label  ">Country</label>
+                    <select class="form-select form-select-lg p-3" aria-label="Default select example"
+                        id="country">
+                        <option selected>select country</option>
+                        <option value="INDIA">INDIA</option>
+                        <option value="USA">USA</option>
+                        <option value="	United Kingdom">United Kingdom</option>
+                        <option value="CANADA">CANADA</option>
+                    </select>
+                    <div class="error-message" id="country-error"></div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <label for="exampleInputEmail1" class="form-label fondspace">State</label>
+                    <select class="form-select form-select-lg p-3" aria-label="Default select example"
+                        id="state">
+                        <option selected>select state</option>
+                        <option value="KERALA">KERALA</option>
+                        <option value="CALIFORNIA">CALIFORNIA</option>
+                        <option value="ALBERTA">ALBERTA</option>
+                        <option value="England">England</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="California">California</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    </select>
+                    <div class="error-message" id="state-error"></div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row pt-4">
+                <div class="col-lg-6">
+                    <label for="last-name" class="form-label ">City</label>
+                    <input class="form-control form-control-lg" type="text" placeholder="enter city"
+                        aria-label=".form-control-sm example" id="city">
+                    <div class="error-message" id="city-error"></div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="last-name" class="form-label  fondspace">Pin/Zip</label>
+                    <input class="form-control form-control-lg" type="text" placeholder="enter zip/pin"
+                        aria-label=".form-control-sm example" id="pinZip">
+                    <div class="error-message" id="pinZip-error"></div>
+                </div>
+            </div>
+            <section class="button">
+                <div class=" d-flex justify-content-end form-background login-btn w-100">
+
+                    <!-- <button onclick="closeForm()" class="btn btn-light">Cancel</button> -->
+                    <button id="Cancel-btn" class="btn btn-light">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="adduserbtn">Add Employee</button>
+                    <button type="button" id="changeemployee" class="btn btn-primary">Save changes</button>
+            </section>
+        </form>
+    </div>
+</div>
+
+
+<!-- /ADD EMPLOYEE FORM -->

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/loginCss/style.css" />
+</head>
+
+<body>
+
+    <main>
+        <div class="box">
+            <div class="inner-box">
+                <div class="forms-wrap">
+                    <% if (notification) { %>
+                        <div class="notification <% if(notification.includes('Email verified')) { %> verified <% } else { %> error <% } %>" id="notification"><%= notification %></div>
+                    <% } %>     
+                    <form action="/register/loginUser" autocomplete="on" class="sign-in-form" method="post" id="login-form">
+
+                        <div class="heading">
+                            <h2>Welcome Back</h2>
+                            <h6>Not registered yet?</h6>
+                            <a href="/signup" class="toggle">Sign up</a>
+                        </div>
+
+                        <div class="actual-form">
+                            <div class="input-wrap">
+                                <input type="email" minlength="4" class="input-field" autocomplete="off" required name="email"/>
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="input-wrap">
+                                <input type="password" minlength="4" class="input-field" autocomplete="off" required name="password" />
+                                <label for="password">Password</label>
+                            </div>
+
+                            <input type="submit" value="Sign In" class="sign-btn" id="login" />
+
+
+                            <p class="text">
+                                Forgotten your password or your login details?
+                                <a href="#">Get help</a> signing in
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="carousel">
+                    <div class="images-wrapper">
+                        <img src="./images/login/image1.png" class="image img-1 show" alt="" />
+                        <img src="./images/login/image2.png" class="image img-2" alt="" />
+                        <img src="./images/login/image3.png" class="image img-3" alt="" />
+                    </div>
+
+                    <div class="text-slider">
+                        <div class="text-wrap">
+                            <div class="text-group">
+                                <h2>Employee Management System</h2>
+                                <h2>Add Your Employees +</h2>
+                                <h2>Employees Are here !</h2>
+                            </div>
+                        </div>
+
+                        <div class="bullets">
+                            <span data-value="1"></span>
+                            <span data-value="2"></span>
+                            <span data-value="3"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="./javascript/loginSignup.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 4000);
+            }
+        });
+    </script>
+</body>
+
+</html>
