@@ -1,7 +1,7 @@
 // employee fetch
 function employeeGet() {
   $.ajax({
-    url: "http://localhost:8080/api/employees",
+    url: "https://employemanagement.vercel.app/api/employees",
     type: "GET",
     dataType: "json",
     success: function (objectData) {
@@ -214,7 +214,7 @@ async function getUser() {
 
     // fetch edit data
 
-    const res = await fetch("http://localhost:8080/api/employees/" + userId);
+    const res = await fetch("https://employemanagement.vercel.app/api/employees/" + userId);
     const data = await res.json();
 
     document.getElementById("salutation").value = data.salutation;
@@ -290,7 +290,7 @@ async function postuser() {
       formData.append(key, value);
     }
 
-    const response = await fetch("http://localhost:8080/api/employees", {
+    const response = await fetch("https://employemanagement.vercel.app/api/employees", {
       method: "POST",
       body: formData,
     });
@@ -311,7 +311,7 @@ async function editing() {
     addImage(profilePic);
   }
   try {
-    await fetch("http://localhost:8080/api/employees/" + userId, {
+    await fetch("https://employemanagement.vercel.app/api/employees/" + userId, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -334,7 +334,7 @@ async function addImage(imageFile) {
   }
 
   try {
-    const res = await fetch("http://localhost:8080/api/employees/" + userId, {
+    const res = await fetch("https://employemanagement.vercel.app/api/employees/" + userId, {
       method: "PUT",
       body: formData,
     });
@@ -363,7 +363,7 @@ function deleteData(id) {
   document.getElementById("overlay").classList.add("active");
 
   deletes.addEventListener("click", function () {
-    fetch("http://localhost:8080/api/employees/" + id, {
+    fetch("https://employemanagement.vercel.app/api/employees/" + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -714,7 +714,7 @@ function searchEmployee() {
   const itemsPerPage = parseInt(employeePerpage.value); 
 
   if (searchValue) {
-      fetch(`http://localhost:8080/search/${searchValue}?page=${currentPage}&limit=${itemsPerPage}`)
+      fetch(`https://employemanagement.vercel.app/search/${searchValue}?page=${currentPage}&limit=${itemsPerPage}`)
           .then((response) => {
               if (!response.ok) {
                   throw new Error("Server error: " + response.statusText);

@@ -29,7 +29,7 @@ let employeeUsername = document.getElementById("employeeUsername");
 // FETCH  DATA FROM SERVER (start)
 
 
-fetch("http://localhost:8080/api/employees/" + employeeID)
+fetch("https://employemanagement.vercel.app/api/employees/" + employeeID)
   .then((employeedata) => {
     return employeedata.json();
   })
@@ -133,7 +133,7 @@ function closeForm() {
  
 
 function viewEmployeeEdit() {
-  fetch("http://localhost:8080/api/employees/" + employeeID)
+  fetch("https://employemanagement.vercel.app/api/employees/" + employeeID)
     .then((employeedata) => {
       if (!employeedata.ok) {
         throw new Error("Error fetching employee data");
@@ -223,7 +223,7 @@ async function addImage(imageFile) {
   }
 
   try {
-    const res = await fetch("http://localhost:8080/api/employees/" + employeeID, {
+    const res = await fetch("https://employemanagement.vercel.app/api/employees/" + employeeID, {
       method: "PUT",
       body: formData,
     });
@@ -291,7 +291,7 @@ async function editing() {
     addImage(profilePic);
   }
   try {
-    await fetch("http://localhost:8080/api/employees/" +employeeID, {
+    await fetch("https://employemanagement.vercel.app/api/employees/" +employeeID, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -329,7 +329,7 @@ function deleteData(employeeID) {
   overlay.classList.add("active");
 
   deletes.addEventListener("click", function () {
-    fetch("http://localhost:8080/api/employees/" + employeeID, {
+    fetch("https://employemanagement.vercel.app/api/employees/" + employeeID, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -406,7 +406,7 @@ function editEmployeeToastClose() {
 document.getElementById("editEmployeeToast").classList.remove("active")
 overlay.classList.remove("active");
 
-}
+
 
 
 
@@ -620,6 +620,3 @@ function formValidation() {
 }
 
 document.getElementById("overlay").addEventListener("click", resetFields);
-
-
-
