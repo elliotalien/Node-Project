@@ -17,11 +17,6 @@ app.use(flash());
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URL,
   collection: 'sessions',
-  connectionOptions: {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000, // Increase timeout to 5 seconds
-  },
 });
 
 // Catch errors
