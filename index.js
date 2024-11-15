@@ -25,10 +25,16 @@ store.on('error', function(error) {
 });
 
 // Session middleware
+const sessionSecret = process.env.SESSION_SECRET || 'default_secret'; // Fallback for development
+
+if (!process.env.SESSION_SECRET) {
+  console.warn("Warning: SESSION_SECRET is not set. Using default secret for development.");
+}
+
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     store: store,
